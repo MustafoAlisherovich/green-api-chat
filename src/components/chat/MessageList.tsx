@@ -55,7 +55,7 @@ export function MessageList({
 						</DialogHeader>
 						<div className='flex flex-col gap-4 py-4'>
 							<Input
-								placeholder='Telefon raqami (masalan: 79991234567)'
+								placeholder='Phone number (example: 79991234567)'
 								value={phoneNumber}
 								onChange={e => setPhoneNumber(e.target.value)}
 								className='bg-[#2b2c33] border-[#363841] text-white'
