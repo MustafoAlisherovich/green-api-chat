@@ -1,32 +1,90 @@
-# React + TypeScript + Vite
+# MAX Web Messenger Client (Интеграция с GREEN-API)
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Упрощенный веб-клиент мессенджера, воссоздающий интерфейс **MAX Messenger**. Приложение разработано с использованием **React**, **Vite**, **Tailwind CSS** и **Shadcn UI**, а для отправки и получения сообщений в реальном времени используется **GREEN-API**.
 
-Currently, two official plugins are available:
+## 🛠 Технологический стек
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+* **Frontend**: React (Vite)
+* **Стилизация**: Tailwind CSS, Shadcn UI
+* **Иконки**: Lucide React
+* **HTTP-клиент**: Axios
+* **API Провайдер**: GREEN-API (Шлюз WhatsApp/Telegram)
 
-## React Compiler
+## 📦 Предварительные требования
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Убедитесь, что на вашем компьютере установлены:
 
-## Expanding the Oxlint configuration
+* **Node.js** (версия 18.0 или выше)
+* **npm**
+* Аккаунт и инстанс в **GREEN-API** (`idInstance` и `apiTokenInstance`) из [console.green-api.com](https://console.green-api.com/)
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+## ⚙️ Настройка GREEN-API
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+Перед запуском приложения настройте ваш инстанс в консоли разработчика GREEN-API:
+
+1. Войдите в [Консоль GREEN-API](https://console.green-api.com/).
+2. Выберите ваш инстанс.
+3. В разделе **Настройки (Settings / Webhooks)**:
+   * Включите параметр **`Уведомлять о входящих сообщениях и файлах` (`Receive webhooks on incoming messages and files`)**.
+   * Сохраните изменения.
+
+## 💻 Локальная установка и запуск
+
+### 1. Клонирование репозитория
+
+```bash
+git clone https://github.com/MustafoAlisherovich/green-api-chat.git
+cd green-api-chat
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### 2. Установка зависимостей
+
+```bash
+npm install
+```
+
+### 3. Запуск сервера разработки
+
+```bash
+npm run dev
+```
+
+Откройте браузер и перейдите по адресу `http://localhost:5173`.
+
+## 📖 Как пользоваться
+
+1. **Авторизация**:
+   * На стартовом экране введите ваши `idInstance` и `apiTokenInstance`.
+2. **Создание чата**:
+   * Нажмите кнопку **`+` (Плюс)** в верхней части списка чатов.
+   * Введите номер телефона получателя в международном формате (например, `998901234567`).
+3. **Отправка и получение сообщений**:
+   * Введите текст сообщения и нажмите **Enter**.
+   * Входящие ответы автоматически запрашиваются каждые 5 секунд и отображаются внутри соответствующего чата.
+
+## 📁 Структура проекта
+
+```
+src/
+├── api/
+│   └── greenApi.ts         
+├── components/
+│   ├── chat/
+│   │   ├── ChatArea.tsx     
+│   │   ├── ChatHeader.tsx     
+│   │   ├── MessageInput.tsx     
+│   │   ├── MessageList.tsx     
+│   │   └── SidebarNav.tsx   
+│   ├── providers/
+│   │   ├── theme-provider.tsx     
+│   └── ui/                  
+├── hooks/
+│   └── useChat.ts           
+├── pages/
+│   ├── AuthPage.tsx         
+│   └── ChatPage.tsx         
+│   └── NotFoundPage.tsx         
+├── types/
+│   └── chat.ts              
+├── App.tsx                  
+└── main.tsx                 
